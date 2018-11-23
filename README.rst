@@ -5,7 +5,7 @@ photoshop-image-exporter
 
 Requires
 ------------
-Tested on python 3.6.7
+Supports Python 3.6.7
 
 
 Installation
