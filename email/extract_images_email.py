@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 
 """ Export image from a photoshop file """
-psd = 'UK_ChristmasCard_MobileWallet_DESKTOP_A.psd'
+psd = 'Campaign1_CR_Mens.psd'
 psd_load = PSDImage.load(Path(os.path.dirname(__file__)) / psd)
 
 
