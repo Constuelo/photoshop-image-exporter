@@ -3,12 +3,23 @@ import os
 from pathlib import Path
 
 """ Export image from a photoshop file """
-psd = 'Campaign1_CR_Layering.psd'
-psd_load = PSDImage.load(Path(os.path.dirname(__file__)) / psd)
+BLUE, END = '\33[94m', '\033[0m'
+user_directory = input('PSD path:')
 
+psd = input('PSD name:')
+
+path_of_psd = os.path.join(user_directory + '\\' + psd)
+
+for file in os.listdir(user_directory):
+    if psd in file:
+        path_of_psd = user_directory + '\\' + file
+
+print(f'\nLoading {{}}{psd}{{}}'.format(BLUE, END))
+psd_load = PSDImage.load(path_of_psd)
+print(f'Finished loading {{}}{psd}{{}}\n'.format(BLUE, END))
 
 """ make an images directory if it does not exist """
-os.makedirs('images', exist_ok=True)
+os.makedirs(f'{user_directory}\\images', exist_ok=True)
 
 desktopArtboard, mobileArtboard = None, None
 desktopModuleList, mobileModuleList = [], []
@@ -45,7 +56,7 @@ def image_extraction(p, name):
                 if 'image'.lower() in j.name.lower():
                     t += 1
                     a = j.as_PIL()
-                    a.save(f'images\\{name}_0{str(t)}.jpg', quality=80, optimize=True)
+                    a.save(f'{user_directory}\\images\\{name}_0{str(t)}.jpg', quality=80, optimize=True)
         except AttributeError as Argument:
             print(f'{Argument}')
 
