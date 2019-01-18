@@ -2,48 +2,53 @@ from psd_tools import PSDImage
 import os
 from pathlib import Path
 
-"""
-    Export images from a PSD
-"""
-psd = 'default.psd'
+""" Export image from a photoshop file """
+psd = 'Campaign1_CR_Layering.psd'
 psd_load = PSDImage.load(Path(os.path.dirname(__file__)) / psd)
 
 
-""" Make an image directory if it does not exist """
+""" make an images directory if it does not exist """
 os.makedirs('images', exist_ok=True)
 
-
-counter = []
-
-
-def recurse(p):
-    """
-        Loop recursively through the visible photoshop layers \
-        For group containing the word 'image' \
-        Writes out images inside an 'images' directory \
-        For best quality use Pixel Layers or Smart Objects \
-        note: Shape layers (vector) do not work correctly. \
-    """
-    try:
-        for layer in p.layers:
-            if layer.visible:
-                if 'image'.lower() in layer.name.lower():
-                    try:
-                        counter.append(layer)
-                        image = layer.as_PIL()
-                        print(layer.layers[0].kind)
-                        if len(counter) <= 9:  # 01.jpg
-                            image.save(f'images\\0{str(len(counter))}.jpg', quality=80, optimize=True)
-                        if len(counter) > 9:  # 10.jpg
-                            image.save(f'images\\{str(len(counter))}.jpg', quality=80, optimize=True)
-
-                    except AttributeError:
-                        pass
-
-                recurse(layer)
-
-    except AttributeError:
-        pass
+desktopArtboard, mobileArtboard = None, None
+desktopModuleList, mobileModuleList = [], []
 
 
-recurse(psd_load)
+""" gets specific desktop and mobile artboard """
+for i in psd_load.layers:
+    if 'DESKTOP' in i.name:
+        desktopArtboard = i
+    if 'MOBILE' in i.name:
+        mobileArtboard = i
+
+
+""" collate layers names into a list """
+for i in desktopArtboard.layers:
+    if i.name == 'HEADER':
+        print(f'Excluding layer {i.name}')
+    else:
+        desktopModuleList.append(i.name)
+
+for i in mobileArtboard.layers:
+    if i.name == 'HEADER':
+        print(f'Excluding layer {i.name}')
+    else:
+        mobileModuleList.append(i.name)
+
+
+def image_extraction(p, name):
+    """ export images """
+    t = 0
+    for layer in p.layers:
+        try:
+            for j in layer.layers:
+                if 'image'.lower() in j.name.lower():
+                    t += 1
+                    a = j.as_PIL()
+                    a.save(f'images\\{name}_0{str(t)}.jpg', quality=80, optimize=True)
+        except AttributeError as Argument:
+            print(f'{Argument}')
+
+
+image_extraction(desktopArtboard, name='Desktop')
+image_extraction(mobileArtboard, name='Mobile')
