@@ -1,6 +1,5 @@
 from psd_tools import PSDImage
 import os
-from pathlib import Path
 
 """ Export image from a photoshop file """
 BLUE, END = '\33[94m', '\033[0m'
