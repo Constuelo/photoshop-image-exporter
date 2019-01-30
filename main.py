@@ -49,16 +49,26 @@ for i in mobileArtboard.layers:
 
 def image_extraction(p, name):
     """ export images """
-    t = 0
+    counter = 0
     for layer in p.layers:
         try:
             for j in layer.layers:
                 if 'image'.lower() in j.name.lower():
-                    t += 1
-                    a = j.as_PIL()
-                    a.save(f'{user_directory}\\images\\{name}_0{str(t)}.jpg', quality=80, optimize=True)
+                    counter += 1
+                    image = j.as_PIL()
+                    save_image(image, counter, name)
         except AttributeError as Argument:
             print(f'{Argument}')
+
+
+def save_image(image, counter, name):
+    """ Save image if counter length is less than or equal to 9 """
+    if counter <= 9:
+        image.save(f'{user_directory}\\images\\{name}_0{str(counter)}.jpg')
+
+    """ Save image if counter length is greater than 9 """
+    if counter > 9:
+        image.save(f'{user_directory}\\images\\{name}_{str(counter)}.jpg')
 
 
 image_extraction(desktopArtboard, name='Desktop')
