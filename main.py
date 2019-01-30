@@ -39,9 +39,9 @@ os.makedirs(f'{user_directory}\\images', exist_ok=True)
 
 """ get specific desktop and mobile artboard """
 for i in psd_load.layers:
-    if 'DESKTOP' in i.name:
+    if 'DESKTOP'.lower() in i.name.lower():
         desktopArtboard = i
-    if 'MOBILE' in i.name:
+    if 'MOBILE'.lower() in i.name.lower():
         mobileArtboard = i
 
 
