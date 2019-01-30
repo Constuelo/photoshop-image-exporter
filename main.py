@@ -1,30 +1,43 @@
 from psd_tools import PSDImage
 import os
 
-""" Export image from a photoshop file """
+""" 
+    Export images from a photoshop file
+    This file is specific to the email process
+    Images are saved out with Desktop_01.jpg, Mobile_01.jpg format
+"""
+
 BLUE, END = '\33[94m', '\033[0m'
+desktopArtboard, mobileArtboard = None, None
+desktopModuleList, mobileModuleList = [], []
+
+""" Directory the psd file is located in """
 user_directory = input('PSD path:')
 
+""" psd file name, does not need to include extension """
 psd = input('PSD name:')
 
 path_of_psd = os.path.join(user_directory + '\\' + psd)
 
+""" 
+    the user directory is then read for the psd,
+    if the extension is missing it will use the file with the same name,
+    It will fail if there are two files with the same name.
+"""
 for file in os.listdir(user_directory):
     if psd in file:
         path_of_psd = user_directory + '\\' + file
 
+""" load the psd into memory """
 print(f'\nLoading {{}}{psd}{{}}'.format(BLUE, END))
 psd_load = PSDImage.load(path_of_psd)
 print(f'Finished loading {{}}{psd}{{}}\n'.format(BLUE, END))
 
-""" make an images directory if it does not exist """
+""" create an image directory if it does not exist """
 os.makedirs(f'{user_directory}\\images', exist_ok=True)
 
-desktopArtboard, mobileArtboard = None, None
-desktopModuleList, mobileModuleList = [], []
 
-
-""" gets specific desktop and mobile artboard """
+""" get specific desktop and mobile artboard """
 for i in psd_load.layers:
     if 'DESKTOP' in i.name:
         desktopArtboard = i
