@@ -12,10 +12,12 @@ desktopArtboard, mobileArtboard = None, None
 desktopModuleList, mobileModuleList = [], []
 
 """ Directory the psd file is located in """
-user_directory = input('PSD path:')
+# user_directory = input('PSD path:')
+user_directory = 'C:\\Users\\rory.ferguson\\Repositories\\Github\\photoshop_email_image_exporter\\test'
 
 """ psd file name, does not need to include extension """
-psd = input('PSD name:')
+# psd = input('PSD name:')
+psd = 'test.psd'
 
 path_of_psd = os.path.join(user_directory + '\\' + psd)
 
@@ -39,9 +41,9 @@ os.makedirs(f'{user_directory}\\images', exist_ok=True)
 
 """ get specific desktop and mobile artboard """
 for i in psd_load.layers:
-    if 'DESKTOP' in i.name:
+    if 'DESKTOP'.lower() in i.name.lower():
         desktopArtboard = i
-    if 'MOBILE' in i.name:
+    if 'MOBILE'.lower() in i.name.lower():
         mobileArtboard = i
 
 
