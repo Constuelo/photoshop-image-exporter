@@ -32,18 +32,14 @@ for i in psd_load.layers:
         mobileArtboard = i
 
 
-""" collate layers names into a list """
-for i in desktopArtboard.layers:
-    if i.name == 'HEADER':
-        print(f'Excluding layer {i.name}')
-    else:
-        desktopModuleList.append(i.name)
-
-for i in mobileArtboard.layers:
-    if i.name == 'HEADER':
-        print(f'Excluding layer {i.name}')
-    else:
-        mobileModuleList.append(i.name)
+def module_list(artboard, lst):
+    """ collate layers names into a list """
+    for layer in artboard.layers:
+        if layer.name == 'HEADER':
+            print(f'Excluding layer {layer.name}')
+        else:
+            lst.append(layer.name)
+    return lst
 
 
 def image_extraction(p, name):
@@ -70,5 +66,7 @@ def save_image(image, counter, name):
         image.save(f'{user_directory}\\images\\{name}_{str(counter)}.jpg')
 
 
+module_list(desktopArtboard, desktopModuleList)
+module_list(mobileArtboard, mobileModuleList)
 image_extraction(desktopArtboard, name='Desktop')
 image_extraction(mobileArtboard, name='Mobile')
