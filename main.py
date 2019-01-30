@@ -1,4 +1,4 @@
-from psd_tools import PSDImage
+from psd_tools2 import PSDImage
 import os
 
 """ 
@@ -32,7 +32,7 @@ for file in os.listdir(user_directory):
 
 """ load the psd into memory """
 print(f'\nLoading {{}}{psd}{{}}'.format(BLUE, END))
-psd_load = PSDImage.load(path_of_psd)
+psd_load = PSDImage.open(path_of_psd)
 print(f'Finished loading {{}}{psd}{{}}\n'.format(BLUE, END))
 
 """ create an image directory if it does not exist """
@@ -40,16 +40,16 @@ os.makedirs(f'{user_directory}\\images', exist_ok=True)
 
 
 """ get specific desktop and mobile artboard """
-for i in psd_load.layers:
-    if 'DESKTOP'.lower() in i.name.lower():
+for i in psd_load:
+    if 'DESKTOP'.lower() in str(i.name).strip("'").lower():
         desktopArtboard = i
-    if 'MOBILE'.lower() in i.name.lower():
+    if 'MOBILE'.lower() in str(i.name).strip("'").lower():
         mobileArtboard = i
 
 
 def module_list(artboard, lst):
     """ collate layers names into a list """
-    for layer in artboard.layers:
+    for layer in artboard.descendants():
         if layer.name == 'HEADER':
             print(f'Excluding layer {layer.name}')
         else:
@@ -60,15 +60,15 @@ def module_list(artboard, lst):
 def image_extraction(p, name):
     """ export images """
     counter = 0
-    for layer in p.layers:
-        try:
-            for j in layer.layers:
-                if 'image'.lower() in j.name.lower() and j.is_visible():
-                    counter += 1
-                    image = j.as_PIL()
-                    save_image(image, counter, name)
-        except AttributeError as Argument:
-            print(f'{Argument}')
+    try:
+        for j in p.descendants():
+            if 'image'.lower() in str(j.name).strip("'").lower() and j.is_visible():
+                counter += 1
+                print(j.compose())
+                image = j.compose()
+                save_image(image, counter, name)
+    except AttributeError as Argument:
+        pass
 
 
 def save_image(image, counter, name):
