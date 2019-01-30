@@ -61,7 +61,7 @@ def image_extraction(p, name):
     for layer in p.layers:
         try:
             for j in layer.layers:
-                if 'image'.lower() in j.name.lower():
+                if 'image'.lower() in j.name.lower() and j.is_visible():
                     counter += 1
                     image = j.as_PIL()
                     save_image(image, counter, name)
