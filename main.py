@@ -1,4 +1,4 @@
-from psd_tools import PSDImage
+from psd_tools2 import PSDImage
 import os
 
 """ 
@@ -17,7 +17,7 @@ user_directory = 'C:\\Users\\rory.ferguson\\Repositories\\Github\\photoshop_emai
 
 """ psd file name, does not need to include extension """
 # psd = input('PSD name:')
-psd = 'elodie.psd'
+psd = 'Campaign2_Valentines_Day.psd'
 
 path_of_psd = os.path.join(user_directory + '\\' + psd)
 
@@ -64,9 +64,9 @@ def image_extraction(p, name):
         for j in p.descendants():
             if 'image'.lower() in str(j.name).strip("'").lower() and j.is_visible():
                 counter += 1
-                print(j.compose())
-                image = j.compose()
-                save_image(image, counter, name)
+                # image = j.topil()
+                print(j)
+                # save_image(image, counter, name)
     except AttributeError as Argument:
         pass
 
