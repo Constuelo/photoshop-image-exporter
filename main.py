@@ -1,4 +1,4 @@
-from psd_tools2 import PSDImage
+from psd_tools import PSDImage
 import os
 
 """ 
@@ -17,7 +17,7 @@ user_directory = 'C:\\Users\\rory.ferguson\\Repositories\\Github\\photoshop_emai
 
 """ psd file name, does not need to include extension """
 # psd = input('PSD name:')
-psd = 'test.psd'
+psd = 'elodie.psd'
 
 path_of_psd = os.path.join(user_directory + '\\' + psd)
 
@@ -74,11 +74,11 @@ def image_extraction(p, name):
 def save_image(image, counter, name):
     """ Save image if counter length is less than or equal to 9 """
     if counter <= 9:
-        image.save(f'{user_directory}\\images\\{name}_0{str(counter)}.jpg')
+        image.convert('RGB').save(f'{user_directory}\\images\\{name}_0{str(counter)}.jpg')
 
     """ Save image if counter length is greater than 9 """
     if counter > 9:
-        image.save(f'{user_directory}\\images\\{name}_{str(counter)}.jpg')
+        image.convert('RGB').save(f'{user_directory}\\images\\{name}_{str(counter)}.jpg')
 
 
 module_list(desktopArtboard, desktopModuleList)
