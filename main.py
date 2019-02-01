@@ -17,7 +17,7 @@ user_directory = 'C:\\Users\\rory.ferguson\\Repositories\\Github\\photoshop_emai
 
 """ psd file name, does not need to include extension """
 # psd = input('PSD name:')
-psd = 'Campaign2_Valentines_Day.psd'
+psd = 'test.psd'
 
 path_of_psd = os.path.join(user_directory + '\\' + psd)
 
@@ -54,6 +54,7 @@ def module_list(artboard, lst):
             print(f'Excluding layer {layer.name}')
         else:
             lst.append(layer.name)
+            print(layer.name)
     return lst
 
 
@@ -62,11 +63,11 @@ def image_extraction(p, name):
     counter = 0
     try:
         for j in p.descendants():
+            print(j)
             if 'image'.lower() in str(j.name).strip("'").lower() and j.is_visible():
                 counter += 1
-                # image = j.topil()
-                print(j)
-                # save_image(image, counter, name)
+                image = j.compose()
+                save_image(image, counter, name)
     except AttributeError as Argument:
         pass
 
