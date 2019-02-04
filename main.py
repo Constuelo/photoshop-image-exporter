@@ -1,5 +1,8 @@
 from psd_tools2 import PSDImage
 import os
+import logging
+
+logging.captureWarnings(True)
 
 """ 
     Export images from a photoshop file
@@ -12,12 +15,10 @@ desktopArtboard, mobileArtboard = None, None
 desktopModuleList, mobileModuleList = [], []
 
 """ Directory the psd file is located in """
-# user_directory = input('PSD path:')
-user_directory = 'C:\\Users\\rory.ferguson\\Repositories\\Github\\photoshop_email_image_exporter\\test'
+user_directory = input('PSD path:')
 
 """ psd file name, does not need to include extension """
-# psd = input('PSD name:')
-psd = 'test.psd'
+psd = input('PSD name:')
 
 path_of_psd = os.path.join(user_directory + '\\' + psd)
 
@@ -49,12 +50,11 @@ for i in psd_load:
 
 def module_list(artboard, lst):
     """ collate layers names into a list """
-    for layer in artboard.descendants():
+    for layer in reversed(list(artboard.descendants())):
         if layer.name == 'HEADER':
             print(f'Excluding layer {layer.name}')
         else:
             lst.append(layer.name)
-            print(layer.name)
     return lst
 
 
@@ -62,13 +62,13 @@ def image_extraction(p, name):
     """ export images """
     counter = 0
     try:
-        for j in p.descendants():
-            print(j)
-            if 'image'.lower() in str(j.name).strip("'").lower() and j.is_visible():
+        for layer in reversed(list(p.descendants())):
+            if 'image'.lower() in str(layer.name).strip("'").lower() and layer.is_visible():
                 counter += 1
-                image = j.compose()
+                image = layer.compose()
                 save_image(image, counter, name)
-    except AttributeError as Argument:
+
+    except AttributeError:
         pass
 
 
@@ -80,6 +80,8 @@ def save_image(image, counter, name):
     """ Save image if counter length is greater than 9 """
     if counter > 9:
         image.convert('RGB').save(f'{user_directory}\\images\\{name}_{str(counter)}.jpg')
+
+    print(f'{name}_0{str(counter)}.jpg')
 
 
 module_list(desktopArtboard, desktopModuleList)
