@@ -1,5 +1,8 @@
-from psd_tools import PSDImage
+from psd_tools2 import PSDImage
 import os
+import logging
+
+logging.captureWarnings(True)
 
 """ 
     Export images from a photoshop file
@@ -30,7 +33,7 @@ for file in os.listdir(user_directory):
 
 """ load the psd into memory """
 print(f'\nLoading {{}}{psd}{{}}'.format(BLUE, END))
-psd_load = PSDImage.load(path_of_psd)
+psd_load = PSDImage.open(path_of_psd)
 print(f'Finished loading {{}}{psd}{{}}\n'.format(BLUE, END))
 
 """ create an image directory if it does not exist """
@@ -38,16 +41,23 @@ os.makedirs(f'{user_directory}\\images', exist_ok=True)
 
 
 """ get specific desktop and mobile artboard """
+<<<<<<< HEAD
+for i in psd_load:
+    if 'DESKTOP'.lower() in str(i.name).strip("'").lower():
+        desktopArtboard = i
+    if 'MOBILE'.lower() in str(i.name).strip("'").lower():
+=======
 for i in psd_load.layers:
     if 'DESKTOP'.lower() in i.name.lower():
         desktopArtboard = i
     if 'MOBILE'.lower() in i.name.lower():
+>>>>>>> master
         mobileArtboard = i
 
 
 def module_list(artboard, lst):
     """ collate layers names into a list """
-    for layer in artboard.layers:
+    for layer in reversed(list(artboard.descendants())):
         if layer.name == 'HEADER':
             print(f'Excluding layer {layer.name}')
         else:
@@ -58,25 +68,35 @@ def module_list(artboard, lst):
 def image_extraction(p, name):
     """ export images """
     counter = 0
-    for layer in p.layers:
-        try:
-            for j in layer.layers:
-                if 'image'.lower() in j.name.lower() and j.is_visible():
-                    counter += 1
-                    image = j.as_PIL()
-                    save_image(image, counter, name)
-        except AttributeError as Argument:
-            print(f'{Argument}')
+    try:
+        for layer in reversed(list(p.descendants())):
+            if 'image'.lower() in str(layer.name).strip("'").lower() and layer.is_visible():
+                counter += 1
+                image = layer.compose()
+                save_image(image, counter, name)
+
+    except AttributeError:
+        pass
 
 
 def save_image(image, counter, name):
     """ Save image if counter length is less than or equal to 9 """
     if counter <= 9:
+<<<<<<< HEAD
+        image.convert('RGB').save(f'{user_directory}\\images\\{name}_0{str(counter)}.jpg')
+
+    """ Save image if counter length is greater than 9 """
+    if counter > 9:
+        image.convert('RGB').save(f'{user_directory}\\images\\{name}_{str(counter)}.jpg')
+
+    print(f'{name}_0{str(counter)}.jpg')
+=======
         image.convert('RGB').save(f'{user_directory}\\images\\{name}_0{str(counter)}.jpg', quality=85)
 
     """ Save image if counter length is greater than 9 """
     if counter > 9:
         image.convert('RGB').save(f'{user_directory}\\images\\{name}_{str(counter)}.jpg', quality=85)
+>>>>>>> master
 
 
 module_list(desktopArtboard, desktopModuleList)
