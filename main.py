@@ -41,17 +41,10 @@ os.makedirs(f'{user_directory}\\images', exist_ok=True)
 
 
 """ get specific desktop and mobile artboard """
-<<<<<<< HEAD
 for i in psd_load:
     if 'DESKTOP'.lower() in str(i.name).strip("'").lower():
         desktopArtboard = i
     if 'MOBILE'.lower() in str(i.name).strip("'").lower():
-=======
-for i in psd_load.layers:
-    if 'DESKTOP'.lower() in i.name.lower():
-        desktopArtboard = i
-    if 'MOBILE'.lower() in i.name.lower():
->>>>>>> master
         mobileArtboard = i
 
 
@@ -82,21 +75,11 @@ def image_extraction(p, name):
 def save_image(image, counter, name):
     """ Save image if counter length is less than or equal to 9 """
     if counter <= 9:
-<<<<<<< HEAD
-        image.convert('RGB').save(f'{user_directory}\\images\\{name}_0{str(counter)}.jpg')
-
-    """ Save image if counter length is greater than 9 """
-    if counter > 9:
-        image.convert('RGB').save(f'{user_directory}\\images\\{name}_{str(counter)}.jpg')
-
-    print(f'{name}_0{str(counter)}.jpg')
-=======
         image.convert('RGB').save(f'{user_directory}\\images\\{name}_0{str(counter)}.jpg', quality=85)
 
     """ Save image if counter length is greater than 9 """
     if counter > 9:
-        image.convert('RGB').save(f'{user_directory}\\images\\{name}_{str(counter)}.jpg', quality=85)
->>>>>>> master
+        image.convert('RGB').save(f'{user_directory}\\images\\{name}_0{str(counter)}.jpg', quality=85)
 
 
 module_list(desktopArtboard, desktopModuleList)
