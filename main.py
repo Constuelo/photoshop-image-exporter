@@ -81,6 +81,8 @@ def save_image(image, counter, name):
     if counter > 9:
         image.convert('RGB').save(f'{user_directory}\\images\\{name}_0{str(counter)}.jpg', quality=85)
 
+    print(f'{name}_0{str(counter)}.jpg')
+
 
 module_list(desktopArtboard, desktopModuleList)
 module_list(mobileArtboard, mobileModuleList)
