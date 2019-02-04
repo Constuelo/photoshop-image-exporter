@@ -17,10 +17,4 @@ psd-tools2
 
 .. code-block:: bash
 
-    pip install psd-tools2==1.7.24
-
-Pillow
-
-.. code-block:: bash
-
-   pip install Pillow==4.1.1
+    pip install psd-tools2==1.8.3
