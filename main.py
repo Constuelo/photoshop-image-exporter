@@ -1,8 +1,5 @@
 from psd_tools2 import PSDImage
 import os
-import logging
-
-logging.captureWarnings(True)
 
 """ 
     Export images from a photoshop file
@@ -42,9 +39,9 @@ os.makedirs(f'{user_directory}\\images', exist_ok=True)
 
 """ get specific desktop and mobile artboard """
 for i in psd_load:
-    if 'DESKTOP'.lower() in str(i.name).strip("'").lower():
+    if 'DESKTOP'.lower() in i.name.lower():
         desktopArtboard = i
-    if 'MOBILE'.lower() in str(i.name).strip("'").lower():
+    if 'MOBILE'.lower() in i.name.lower():
         mobileArtboard = i
 
 
@@ -63,10 +60,13 @@ def image_extraction(p, name):
     counter = 0
     try:
         for layer in reversed(list(p.descendants())):
-            if 'image'.lower() in str(layer.name).strip("'").lower() and layer.is_visible():
-                counter += 1
-                image = layer.compose()
-                save_image(image, counter, name)
+            if 'image'.lower() in layer.name.lower() and layer.is_visible():
+                try:
+                    counter += 1
+                    image = layer.compose()
+                    save_image(image, counter, name)
+                except:
+                    pass
 
     except AttributeError:
         pass
