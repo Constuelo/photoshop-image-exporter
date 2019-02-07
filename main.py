@@ -79,7 +79,7 @@ def save_image(image, counter, name):
 
     """ Save image if counter length is greater than 9 """
     if counter > 9:
-        image.convert('RGB').save(f'{user_directory}\\images\\{name}_0{str(counter)}.jpg', quality=85)
+        image.convert('RGB').save(f'{user_directory}\\images\\{name}_{str(counter)}.jpg', quality=85)
 
     print(f'{name}_0{str(counter)}.jpg')
 
