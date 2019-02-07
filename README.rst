@@ -1,7 +1,7 @@
-photoshop-image-exporter
+photoshop_email_image_exporter
 ==========
 
-``photoshop-image-exporter`` is a script to export JPG images from a PSD.
+``photoshop_email_image_exporter`` is a script to export JPG images from a PSD.
 
 Requires
 ------------
@@ -10,11 +10,11 @@ Supports Python 3.6.7
 
 Installation
 ------------
-``photoshop-image-exporter`` requires the below packages
+``photoshop_email_image_exporter`` requires the below packages
 
 
 psd-tools2
 
 .. code-block:: bash
 
-    pip install psd-tools2==1.8.3
+    pip install psd-tools2==1.8.5
