@@ -1,4 +1,4 @@
-from psd_tools2 import PSDImage
+from psd_tools import PSDImage
 import os
 
 """ 
@@ -8,6 +8,7 @@ import os
 """
 
 BLUE, END = '\33[94m', '\033[0m'
+
 desktopArtboard, mobileArtboard = None, None
 desktopModuleList, mobileModuleList = [], []
 
