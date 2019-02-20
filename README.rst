@@ -13,8 +13,8 @@ Installation
 ``photoshop_email_image_exporter`` requires the below packages
 
 
-psd-tools2
+psd-tools
 
 .. code-block:: bash
 
-    pip install psd-tools2==1.8.5
+    pip install psd-tools
