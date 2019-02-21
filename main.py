@@ -76,12 +76,12 @@ def save_image(image, counter, name):
     """ Save image if counter length is less than or equal to 9 """
     if counter <= 9:
         image.convert('RGB').save(f'{user_directory}\\images\\{name}_0{str(counter)}.jpg', quality=85)
+        print(f'{name}_0{str(counter)}.jpg')
 
     """ Save image if counter length is greater than 9 """
     if counter > 9:
         image.convert('RGB').save(f'{user_directory}\\images\\{name}_{str(counter)}.jpg', quality=85)
-
-    print(f'{name}_0{str(counter)}.jpg')
+        print(f'{name}_{str(counter)}.jpg')
 
 
 module_list(desktopArtboard, desktopModuleList)
