@@ -8,6 +8,10 @@ import os
 """
 
 BLUE, END = '\33[94m', '\033[0m'
+<<<<<<< HEAD
+=======
+
+>>>>>>> e18a2b5f9ad2e66d85c96abda54513b2cb736805
 desktopArtboard, mobileArtboard = None, None
 desktopModuleList, mobileModuleList = [], []
 
@@ -76,12 +80,20 @@ def save_image(image, counter, name):
     """ Save image if counter length is less than or equal to 9 """
     if counter <= 9:
         image.convert('RGB').save(f'{user_directory}\\images\\{name}_0{str(counter)}.jpg', quality=85)
+<<<<<<< HEAD
         print(f'{name}_0{str(counter)}.jpg')
+=======
+>>>>>>> e18a2b5f9ad2e66d85c96abda54513b2cb736805
 
     """ Save image if counter length is greater than 9 """
     if counter > 9:
         image.convert('RGB').save(f'{user_directory}\\images\\{name}_{str(counter)}.jpg', quality=85)
+<<<<<<< HEAD
         print(f'{name}_{str(counter)}.jpg')
+=======
+
+    print(f'{name}_0{str(counter)}.jpg')
+>>>>>>> e18a2b5f9ad2e66d85c96abda54513b2cb736805
 
 
 module_list(desktopArtboard, desktopModuleList)
