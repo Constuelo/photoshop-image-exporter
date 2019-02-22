@@ -1,5 +1,6 @@
-from psd_tools2 import PSDImage
+from psd_tools import PSDImage
 import os
+from pathlib import Path
 
 """ 
     Export images from a photoshop file
@@ -8,10 +9,6 @@ import os
 """
 
 BLUE, END = '\33[94m', '\033[0m'
-<<<<<<< HEAD
-=======
-
->>>>>>> e18a2b5f9ad2e66d85c96abda54513b2cb736805
 desktopArtboard, mobileArtboard = None, None
 desktopModuleList, mobileModuleList = [], []
 
@@ -20,8 +17,8 @@ user_directory = input('PSD path:')
 
 """ psd file name, does not need to include extension """
 psd = input('PSD name:')
-
-path_of_psd = os.path.join(user_directory + '\\' + psd)
+                                                
+path_of_psd = Path(user_directory).joinpath(psd)
 
 """ 
     the user directory is then read for the psd,
@@ -30,7 +27,7 @@ path_of_psd = os.path.join(user_directory + '\\' + psd)
 """
 for file in os.listdir(user_directory):
     if psd in file:
-        path_of_psd = user_directory + '\\' + file
+        path_of_psd = Path(user_directory).joinpath(file)
 
 """ load the psd into memory """
 print(f'\nLoading {{}}{psd}{{}}'.format(BLUE, END))
@@ -38,7 +35,7 @@ psd_load = PSDImage.open(path_of_psd)
 print(f'Finished loading {{}}{psd}{{}}\n'.format(BLUE, END))
 
 """ create an image directory if it does not exist """
-os.makedirs(f'{user_directory}\\images', exist_ok=True)
+os.makedirs(Path(user_directory).joinpath('images'), exist_ok=True)
 
 
 """ get specific desktop and mobile artboard """
@@ -79,21 +76,13 @@ def image_extraction(p, name):
 def save_image(image, counter, name):
     """ Save image if counter length is less than or equal to 9 """
     if counter <= 9:
-        image.convert('RGB').save(f'{user_directory}\\images\\{name}_0{str(counter)}.jpg', quality=85)
-<<<<<<< HEAD
+        image.convert('RGB').save(Path(user_directory).joinpath('images', f'{name}_0{str(counter)}.jpg'), quality=85)
         print(f'{name}_0{str(counter)}.jpg')
-=======
->>>>>>> e18a2b5f9ad2e66d85c96abda54513b2cb736805
 
     """ Save image if counter length is greater than 9 """
     if counter > 9:
-        image.convert('RGB').save(f'{user_directory}\\images\\{name}_{str(counter)}.jpg', quality=85)
-<<<<<<< HEAD
+        image.convert('RGB').save(Path(user_directory).joinpath('images', f'{name}_{str(counter)}.jpg'), quality=85)
         print(f'{name}_{str(counter)}.jpg')
-=======
-
-    print(f'{name}_0{str(counter)}.jpg')
->>>>>>> e18a2b5f9ad2e66d85c96abda54513b2cb736805
 
 
 module_list(desktopArtboard, desktopModuleList)
