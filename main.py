@@ -17,17 +17,22 @@ user_directory = input('PSD path:')
 
 """ psd file name, does not need to include extension """
 psd = input('PSD name:')
-                                                
-path_of_psd = Path(user_directory).joinpath(psd)
 
-""" 
-    the user directory is then read for the psd,
-    if the extension is missing it will use the file with the same name,
-    It will fail if there are two files with the same name.
-"""
-for file in os.listdir(user_directory):
-    if psd in file:
-        path_of_psd = Path(user_directory).joinpath(file)
+if psd:
+    for file in os.listdir(user_directory):
+        if psd in file:
+            path_of_psd = Path(user_directory).joinpath(file)
+            break
+
+if not psd:
+    for file in os.listdir(user_directory):
+        if '.psb' in file or '.psd' in file:
+            path_of_psd = Path(user_directory).joinpath(file)
+            break
+
+if not path_of_psd:
+    path_of_psd = Path(user_directory).joinpath(psd)
+
 
 """ load the psd into memory """
 print(f'\nLoading {{}}{psd}{{}}'.format(BLUE, END))
