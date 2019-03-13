@@ -1,6 +1,7 @@
 from psd_tools import PSDImage
 import os
 from pathlib import Path
+import sys
 
 """ 
     Export images from a photoshop file
@@ -51,6 +52,13 @@ for i in psd_load:
         desktopArtboard = i
     if 'MOBILE'.lower() in i.name.lower():
         mobileArtboard = i
+
+
+if desktopArtboard is None or mobileArtboard is None:
+    print('There was a problem.')
+    print('Please ensure the artboard names include one of the below')
+    print('_Desktop or _Mobile')
+    sys.exit()
 
 
 def module_list(artboard, lst):
