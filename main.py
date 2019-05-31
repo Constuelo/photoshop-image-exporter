@@ -2,6 +2,7 @@ from psd_tools import PSDImage
 import os
 from pathlib import Path
 import sys
+from colorama import Fore, Style
 
 """ 
     Export images from a photoshop file
@@ -9,7 +10,6 @@ import sys
     Images are saved out with Desktop_01.jpg, Mobile_01.jpg format
 """
 
-BLUE, END = '\33[94m', '\033[0m'
 desktopArtboard, mobileArtboard = None, None
 desktopModuleList, mobileModuleList = [], []
 
@@ -38,9 +38,9 @@ if not path_of_psd:
 
 
 """ load the psd into memory """
-print(f'\nLoading {{}}{psd}{{}}'.format(BLUE, END))
+print(f'Loading {Fore.BLUE}{psd}{Style.RESET_ALL}.')
 psd_load = PSDImage.open(path_of_psd)
-print(f'Finished loading {{}}{psd}{{}}\n'.format(BLUE, END))
+print(f'Finished loading {Fore.BLUE}{psd}{Style.RESET_ALL}')
 
 """ create an image directory if it does not exist """
 os.makedirs(Path(user_directory).joinpath('images'), exist_ok=True)
