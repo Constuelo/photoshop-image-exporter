@@ -1,1 +1,1 @@
-This repo is archived see [image_export](https://github.com/Constuelo/image_export)
+This repo is archived see https://github.com/Constuelo/image_export
